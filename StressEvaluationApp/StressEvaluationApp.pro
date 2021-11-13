@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,11 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    SystemMessages.cpp \
+    qcustomplot.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    serial_interface.cpp
 
 HEADERS += \
-    mainwindow.h
+    SystemMessages.h \
+    qcustomplot.h \
+    mainwindow.h \
+    serial_interface.h
 
 FORMS += \
     mainwindow.ui
