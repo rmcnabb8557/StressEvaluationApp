@@ -1,22 +1,24 @@
 #ifndef SYSTEMMESSAGES_H
 #define SYSTEMMESSAGES_H
 
-typedef void(*functionPointerType)(void);
+#include <QByteArray>
+
+typedef void(*functionPointerType)(QByteArray data);
 struct commandStruct{
     char const *name;
-    quint8 header;
+    quint8 const header;
     functionPointerType execute;
     char const *help;
 }; // Abstract Implementation of the Command Object as a C Struct
 
-void CmdVersion();
-void CmdSDTest();
-void CmdBlinkLED();
-void CmdDataCollect();
-void CmdDataFilter();
-void CmdRun();
-void CmdRunStop();
-void CmdDeepSleep();
+void CmdVersion(QByteArray);
+void CmdSDTest(QByteArray);
+void CmdBlinkLED(QByteArray);
+void CmdDataCollect(QByteArray);
+void CmdDataFilter(QByteArray);
+void CmdRun(QByteArray);
+void CmdRunStop(QByteArray);
+void CmdDeepSleep(QByteArray);
 
 const struct commandStruct commands[] = {
     {"ver", 1, &CmdVersion,

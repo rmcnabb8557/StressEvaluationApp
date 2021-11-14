@@ -2,7 +2,8 @@
 #define SERIAL_INTERFACE_H
 
 #include <QObject>
-#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
+#include <QTextStream>
 
 #include "SystemMessages.h"
 
@@ -20,6 +21,7 @@ public slots:
     void OpenSerialPort();
     void CloseSerialPort();
     void ReadData();
+    void WriteData();
 
 private:
     QSerialPort* serial_port;

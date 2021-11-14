@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/logos">
+        <file>uah_logo.png</file>
+        <file>microbot_logo_resized.png</file>
+    </qresource>
+</RCC>
