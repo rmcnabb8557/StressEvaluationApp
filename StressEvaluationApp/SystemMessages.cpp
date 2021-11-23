@@ -1,33 +1,33 @@
 #include <SystemMessages.h>
 
-void CmdVersion(QByteArray data){
+QByteArray CmdVersionRequest(){
 
 }
 
-void CmdSDTest(QByteArray data){
+QByteArray CmdSDTest(){
 
 }
 
-void CmdBlinkLED(QByteArray data){
+QByteArray CmdBlinkLED(){
 
 }
 
-void CmdDataCollect(QByteArray data){
+QByteArray CmdDataCollect(){
 
 }
 
-void CmdDataFilter(QByteArray data){
+QByteArray CmdDataFilter(){
 
 }
 
-void CmdRun(QByteArray data){
+QByteArray CmdRun(){
 
 }
 
-void CmdRunStop(QByteArray data){
+QByteArray CmdRunStop(){
 
 }
 
-void CmdDeepSleep(QByteArray data){
+QByteArray CmdDeepSleep(){
 
 }

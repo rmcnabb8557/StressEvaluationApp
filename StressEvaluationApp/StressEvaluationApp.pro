@@ -19,16 +19,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     SystemMessages.cpp \
+    console.cpp \
+    logger.cpp \
+    parser.cpp \
     qcustomplot.cpp \
     main.cpp \
     mainwindow.cpp \
-    serial_interface.cpp
+    serialinterface.cpp
 
 HEADERS += \
     SystemMessages.h \
+    console.h \
+    logger.h \
+    parser.h \
     qcustomplot.h \
     mainwindow.h \
-    serial_interface.h
+    serialinterface.h
 
 FORMS += \
     mainwindow.ui
