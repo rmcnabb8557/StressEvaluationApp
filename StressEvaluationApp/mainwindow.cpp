@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tabWidget->setCurrentIndex(0);
     log = new Logger();
     QDate now;
-    log->SetFileName(QString("log_" + now.currentDate().toString() + ".txt"));
+    log->setFileName(QString("log_" + now.currentDate().toString() + ".txt"));
     parser = new Parser(log);
+    ui->debug_console->setLog(log);
+    ui->run_console->setLog(log);
     // CHANGE VIEW SIGNALS AND SLOTS
     connect(ui->stressTest_button, SIGNAL(clicked()), this, SLOT(setupTab()));
     connect(ui->debug_button, SIGNAL(clicked()), this, SLOT(setupDebugTab()));
@@ -32,14 +34,14 @@ void MainWindow::setupTab()
 {
     ui->tabWidget->setCurrentIndex(1);
     connect(ui->stressStart_button, SIGNAL(clicked()), this, SLOT(startRunEval()));
-    log->LogEvent(QString("Transitioned to Setup Tab for Run Start"));
+    log->logEvent(QString("Transitioned to Setup Tab for Run Start"));
 }
 
 void MainWindow::setupDebugTab()
 {
     ui->tabWidget->setCurrentIndex(1);
     connect(ui->stressStart_button, SIGNAL(clicked()), this, SLOT(startDebugEval()));
-    log->LogEvent(QString("Transitioned to Setup Tab for Debug Start"));
+    log->logEvent(QString("Transitioned to Setup Tab for Debug Start"));
 }
 
 void MainWindow::startRunEval()
@@ -54,7 +56,7 @@ void MainWindow::startRunEval()
         return;
     ui->tabWidget->setCurrentIndex(2);
     parser->setConsole(ui->run_console, false);
-    log->LogEvent(QString("Connected Parser to Console"));
+    log->logEvent(QString("Connected Parser to Console"));
     parser->setSerialInterface(settings.port_name);
     parser->writeMessage(QString("run"));
     // something to send the start message, start parser as well probably
@@ -69,9 +71,9 @@ void MainWindow::startDebugEval()
     // set up csv file here
     ui->tabWidget->setCurrentIndex(3);
     parser->setConsole(ui->debug_console, true);
-    log->LogEvent(QString("Connected Parser to Debug Console"));
+    log->logEvent(QString("Connected Parser to Debug Console"));
     parser->setSerialInterface(settings.port_name);
-    log->LogEvent(QString("Started Serial Interface"));
+    log->logEvent(QString("Started Serial Interface"));
     // starts debug interface object here
 }
 

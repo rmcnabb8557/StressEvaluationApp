@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QPlainTextEdit>
 #include <QTextBlock>
+#include <logger.h>
 
 class Console : public QPlainTextEdit
 {
@@ -18,10 +19,13 @@ signals:
     void outgoingCommand(QString);
 
 public slots:
-    void writeLine(const QByteArray &data);
+    void writeLine(QString);
 
 public:
     void setLocalEchoEnabled(bool set);
+    void setLog(Logger*);
+
+    Logger* log;
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;

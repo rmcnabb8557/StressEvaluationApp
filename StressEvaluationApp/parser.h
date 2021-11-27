@@ -10,7 +10,8 @@ class Parser : public QObject
 {
     Q_OBJECT
 public:
-    explicit Parser(QObject *parent = nullptr);
+    explicit Parser();
+    Parser(Logger*);
     ~Parser();
     void setSerialInterface(QString);
     void setConsole(Console*, bool);
@@ -19,11 +20,11 @@ public:
     QVector<double> v_ecg_diff;
     QVector<double> v_pcg_avg;
     QVector<double> v_stress;
-    Log* log;
+    Logger* log;
 
 signals:
     void dataUpdate(QVector<double>& time, QVector<double>& ecg_diff, QVector<double>& pcg_avg, QVector<double>& stress);
-    void updateTextEdit(QString);
+    void updateConsole(QString);
 
 public slots:
     void processUpdatedTextEdit(QString);
@@ -31,6 +32,7 @@ public slots:
 
 private slots:
     void processIncomingMessage(QByteArray);
+    void writeSerialError(QString);
 
 private:
     SerialInterface* serial;

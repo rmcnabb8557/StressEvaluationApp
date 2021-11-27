@@ -10,7 +10,7 @@ Console::Console(QWidget *parent) :
 //    setPalette(p);
 }
 
-void Console::writeLine(const QByteArray &data)
+void Console::writeLine(QString data)
 {
     insertPlainText(data);
     QScrollBar *bar = verticalScrollBar();
@@ -20,6 +20,12 @@ void Console::writeLine(const QByteArray &data)
 void Console::setLocalEchoEnabled(bool set)
 {
     m_localEchoEnabled = set;
+}
+
+void Console::setLog(Logger* new_log)
+{
+    log = new_log;
+    log->logEvent(QString("Console given access to Log object"));
 }
 
 void Console::keyPressEvent(QKeyEvent *e)
@@ -36,6 +42,8 @@ void Console::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Return:
         tb = document()->findBlockByLineNumber(document()->lineCount()-1); // The last line.
         command = tb.text();
+        command = command.trimmed();
+        log->logEvent(QString("Console collected command data, about to emit"));
         emit(outgoingCommand(command));
     default:
         if (m_localEchoEnabled)

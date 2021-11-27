@@ -21,7 +21,7 @@ QByteArray CmdRunStop();
 QByteArray CmdDeepSleep();
 
 const struct commandStruct commands[] = {
-    {"ver", 1, &CmdVersionRequest,
+    {"ver", 0x61, &CmdVersionRequest,
      "Display Firmware Version"},
     {"sdTest", 2, &CmdSDTest,
      "Runs SD Card test, returns number of errors on completion."},
@@ -40,12 +40,9 @@ const struct commandStruct commands[] = {
     {"",0, 0,""} // End of Table indicator
 }; // Concrete Implementations of several Command Objects
 
-enum MessageTypes
-{
-    DATA_MESSAGE,
-    VER_MESSAGE,
-    TEST_DATA_MESSAGE
-};
+const uint8_t DATA_MESSAGE = 0x11;
+const uint8_t VER_MESSAGE = 0x61;
+const uint8_t TEST_DATA_MESSAGE = 0xAA;
 
 
 #endif // SYSTEMMESSAGES_H

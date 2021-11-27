@@ -16,15 +16,17 @@ public:
 
 signals:
     void incomingMessageData(QByteArray);
+    void serialError(QString);
 
 public slots:
     void openSerialPort(QString);
     void closeSerialPort();
     void readData();
     void writeMessage(QByteArray);
+    void handleError(QSerialPort::SerialPortError);
 
 private:
-    QSerialPort* serial_port;
+    QSerialPort* m_serial_port;
 
 
 

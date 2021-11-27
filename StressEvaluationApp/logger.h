@@ -12,15 +12,15 @@ class Logger : public QObject
 public:
     explicit Logger();
     ~Logger();
-    void SetFileName(QString);
-    void LogEvent(QString);
-    void LogEvent(QByteArray);
+    void setFileName(QString);
+    void logEvent(QString);
+    void logEvent(QByteArray);
 
 signals:
 
 private:
-    QFile* file;
-    int lineNum = 0;
+    QString m_fileName;
+    int m_lineNum = 0;
 };
 
 #endif // LOGGER_H
