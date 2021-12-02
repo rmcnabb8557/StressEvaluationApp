@@ -3,12 +3,19 @@
 QByteArray CmdVersionRequest(){
     QByteArray qb;
     qb.append(0x61);
-    qb.append(0x61); // adjust this for the crc value
     return qb;
 }
 
-QByteArray CmdSDTest(){
-
+QByteArray CmdSync(){
+    QByteArray qb;
+    qb.append(0x65);
+    QDateTime now;
+    time_t rtcData = now.currentSecsSinceEpoch();
+    char *rtcData_ptr = (char*)&rtcData;
+    //for(int i = 4; i > 0; i++){
+    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
+    //}
+    return qb;
 }
 
 QByteArray CmdBlinkLED(){
@@ -24,13 +31,30 @@ QByteArray CmdDataFilter(){
 }
 
 QByteArray CmdRun(){
-
+    QByteArray qb;
+    qb.append(0x71);
+    QDateTime now;
+    time_t rtcData = now.currentSecsSinceEpoch();
+    char *rtcData_ptr = (char*)&rtcData;
+    //for(int i = 4; i > 0; i++){
+    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
+    //}
+    return qb;
 }
 
 QByteArray CmdRunStop(){
 
 }
 
-QByteArray CmdDeepSleep(){
-
+QByteArray CmdDbgRun(){
+    QByteArray qb;
+    qb.append(0x41);
+    QDateTime now;
+    time_t rtcData = now.currentSecsSinceEpoch();
+    char *rtcData_ptr = (char*)&rtcData;
+    //for(int i = 4; i > 0; i++){
+    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
+    qb.append(0x71);
+    //}
+    return qb;
 }

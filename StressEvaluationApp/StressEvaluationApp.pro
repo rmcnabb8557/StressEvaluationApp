@@ -20,21 +20,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     SystemMessages.cpp \
     console.cpp \
+    csvwriter.cpp \
     logger.cpp \
     parser.cpp \
     qcustomplot.cpp \
     main.cpp \
     mainwindow.cpp \
-    serialinterface.cpp
+    serialinterface.cpp \
+    stressMonitoringLibrary.cpp
 
 HEADERS += \
     SystemMessages.h \
     console.h \
+    csvwriter.h \
     logger.h \
     parser.h \
     qcustomplot.h \
     mainwindow.h \
-    serialinterface.h
+    serialinterface.h \
+    stressMonitoringLibrary.h
 
 FORMS += \
     mainwindow.ui

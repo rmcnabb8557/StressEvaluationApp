@@ -21,7 +21,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -204,6 +204,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -224,6 +227,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
                   </property>
                  </widget>
                 </item>
@@ -247,7 +253,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>1</string>
                   </property>
                  </widget>
                 </item>
@@ -269,6 +275,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
                   </property>
                  </widget>
                 </item>
@@ -313,7 +322,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>f</string>
                   </property>
                  </widget>
                 </item>
@@ -338,7 +347,13 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="inputMask">
+                 <string/>
+                </property>
                 <property name="text">
+                 <string>/dev/ttyS3</string>
+                </property>
+                <property name="placeholderText">
                  <string/>
                 </property>
                </widget>
@@ -533,7 +548,7 @@
               <item>
                <widget class="QCustomPlot" name="ecg_plot" native="true">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -543,7 +558,7 @@
               <item>
                <widget class="QCustomPlot" name="stress_plot" native="true">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -553,7 +568,7 @@
               <item>
                <widget class="QCustomPlot" name="pcg_plot" native="true">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>

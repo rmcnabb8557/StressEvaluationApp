@@ -6,6 +6,7 @@
 #include "serialinterface.h"
 #include "logger.h"
 #include "parser.h"
+#include "csvwriter.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +24,9 @@ public:
 private:
     Ui::MainWindow *ui;
     Parser *parser;
+    CSVWriter m_csv;
+    QTimer *runTimer;
+    QTimer *syncTimer;
     //SerialInterface *serial;
     struct PortSettings{
         QString port_name;
@@ -36,12 +40,19 @@ private:
         "", "", 0, 0, 0, 0
     };
 
+    QVector<double> v_time;
+    QVector<double> v_ecg_diff;
+    QVector<double> v_pcg_avg;
+    QVector<double> v_stress;
+
 private slots:
     void setupTab();
     void setupDebugTab();
     void startRunEval();
     void startDebugEval();
-    void updatePlot(QVector<double>& time,
-                    QVector<double>& ecg_diff, QVector<double>& pcg_avg, QVector<double>& stress);
+    void updatePlot(quint64 time,
+                    qint16 ecg_diff, quint16 pcg_avg);
+    void sendSyncMessage();
+    void updateClock();
 };
 #endif // MAINWINDOW_H

@@ -38,57 +38,51 @@ void Parser::setConsole(Console* new_console, bool isDebug)
         log->logEvent(QString("Debug Console Opened"));
     }
     else{
-
+        console->setReadOnly(true);
+        connect(this, SIGNAL(updateConsole(QString)), console, SLOT(writeLine(QString)));
+        connect(serial, SIGNAL(serialError(QString)), console, SLOT(writeLine(QString)));
+        connect(serial, SIGNAL(serialError(QString)), this, SLOT(writeSerialError(QString)));
+        log->logEvent(QString("Debug Console Opened"));
     }
-    // connect signals and slots
-}
-
-//public slots:
-void Parser::processUpdatedTextEdit(QString string)
-{
-
 }
 
 //private slots:
 void Parser::processIncomingMessage(QByteArray data)
 {
     uint8_t* dataPtr = (uint8_t*)data.data();
-    time_t time;
+    int data_size = data.size();
+    static quint64 time = 0;
     qint16 ecg_diff;
-    quint16 pcg1;
-    quint16 pcg2;
-    char ver_major, ver_minor;
+    qint16 pcg;
+    char ver_major, ver_minor, ver_debug;
     QString consoleMessage;
     log->logEvent(QString("Message recieved. Message type: ") + QString::number(dataPtr[0]));
-    switch(dataPtr[0])
-    {
-        case DATA_MESSAGE:
-            time = time_t(dataPtr[4] | (dataPtr[3] << 8) | (dataPtr[2] << 16)
-                               | (dataPtr[1] << 24));
-            ecg_diff = qint16(dataPtr[9] << 8 | dataPtr[10]);
-            pcg1 = quint16(dataPtr[11] << 8 | dataPtr[12]);
-            pcg2 = quint16(dataPtr[13] << 8 | dataPtr[14]);
-            v_time.append(double(time));
-            v_ecg_diff.append(double(ecg_diff));
-            v_pcg_avg.append(double((pcg1 + pcg2)/2));
-            if(v_time.size() > 6000)
-            {
-               v_time.removeFirst();
-               v_ecg_diff.removeFirst();
-               v_pcg_avg.removeFirst();
-            }
-            //emit some shit
-            break;
-        case VER_MESSAGE:
-            ver_major = dataPtr[1];
-            ver_minor = dataPtr[2];
-            consoleMessage = QString("Version is ") + QString(ver_major) + QString(":") + QString(ver_minor) + QString("\n");
-            emit(updateConsole(consoleMessage));
-            break;
-        case TEST_DATA_MESSAGE:
-        default:
-            emit(updateConsole(QString(data)));
-            break;
+    int i = 0;
+    while(i < data_size){
+        switch(dataPtr[i])
+        {
+            case DATA_MESSAGE:
+                time++;
+                ecg_diff = qint16(dataPtr[2+i] << 8 | dataPtr[1+i]);
+                pcg = quint16(dataPtr[4+i] << 8 | dataPtr[3+i]);
+                //pcg2 = quint16(dataPtr[13] << 8 | dataPtr[14]);
+                i += 6;
+                emit(dataUpdate(time,ecg_diff,pcg));
+                break;
+            case VER_MESSAGE:
+                ver_major = dataPtr[1];
+                ver_minor = dataPtr[2];
+                ver_debug = dataPtr[3];
+                consoleMessage = QString("Version is ") + QString(ver_major) + QString(".") + QString(ver_minor) + QString(".") + QString(ver_debug) + QString("\n");
+                i += 4;
+                emit(updateConsole(consoleMessage));
+                break;
+            case TEST_DATA_MESSAGE:
+            default:
+                emit(updateConsole(QString(data)));
+                i++;
+                break;
+        }
     }
 
 }
@@ -106,6 +100,7 @@ void Parser::writeMessage(QString cmd)
             msg = commands[i].execute();
             serial->writeMessage(msg);
             log->logEvent(QString("Command ") + cmd + QString(" written"));
+            log->logEvent(msg);
             return;
         }
         i++;

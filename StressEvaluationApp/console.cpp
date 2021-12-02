@@ -12,7 +12,8 @@ Console::Console(QWidget *parent) :
 
 void Console::writeLine(QString data)
 {
-    insertPlainText(data);
+    appendPlainText(data);
+    appendPlainText("\n>");
     QScrollBar *bar = verticalScrollBar();
     bar->setValue(bar->maximum());
 }
@@ -43,8 +44,11 @@ void Console::keyPressEvent(QKeyEvent *e)
         tb = document()->findBlockByLineNumber(document()->lineCount()-1); // The last line.
         command = tb.text();
         command = command.trimmed();
+        command.remove(0,1);
+        insertPlainText("\n>");
         log->logEvent(QString("Console collected command data, about to emit"));
         emit(outgoingCommand(command));
+        break;
     default:
         if (m_localEchoEnabled)
             QPlainTextEdit::keyPressEvent(e);
