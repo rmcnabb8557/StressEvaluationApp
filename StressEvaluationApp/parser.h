@@ -20,7 +20,8 @@ public:
     Logger* log;
 
 signals:
-    void dataUpdate(quint64 time, qint16 ecg_diff, quint16 pcg_avg);
+    void dataUpdate(quint64 time, quint16 ecg_diff, quint16 pcg_avg);
+    void dataUpdate(quint32, quint32);
     void updateConsole(QString);
 
 public slots:

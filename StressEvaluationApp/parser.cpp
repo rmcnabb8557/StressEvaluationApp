@@ -52,8 +52,9 @@ void Parser::processIncomingMessage(QByteArray data)
     uint8_t* dataPtr = (uint8_t*)data.data();
     int data_size = data.size();
     static quint64 time = 0;
-    qint16 ecg_diff;
-    qint16 pcg;
+    quint16 ecg_diff;
+    quint16 pcg;
+    quint32 rr_latency, ecg_s1_latency;
     char ver_major, ver_minor, ver_debug;
     QString consoleMessage;
     log->logEvent(QString("Message recieved. Message type: ") + QString::number(dataPtr[0]));
@@ -63,11 +64,17 @@ void Parser::processIncomingMessage(QByteArray data)
         {
             case DATA_MESSAGE:
                 time++;
-                ecg_diff = qint16(dataPtr[2+i] << 8 | dataPtr[1+i]);
-                pcg = quint16(dataPtr[4+i] << 8 | dataPtr[3+i]);
+                ecg_diff = quint16(dataPtr[1+i] << 8 | dataPtr[2+i]);
+                pcg = quint16(dataPtr[3+i] << 8 | dataPtr[4+i]);
                 //pcg2 = quint16(dataPtr[13] << 8 | dataPtr[14]);
-                i += 6;
+                i += 5;
                 emit(dataUpdate(time,ecg_diff,pcg));
+                break;
+            case STRESS_DATA_MESSAGE:
+                rr_latency = quint32(dataPtr[1+i] << 24 | dataPtr[2+i] << 16 | dataPtr[3+i] << 8 | dataPtr[4+i]);
+                ecg_s1_latency = quint32(dataPtr[5+i] << 24 | dataPtr[6+i] << 16 | dataPtr[7+i] << 8 | dataPtr[8+i]);
+                emit(dataUpdate(rr_latency,ecg_s1_latency));
+                i += 9;
                 break;
             case VER_MESSAGE:
                 ver_major = dataPtr[1];
@@ -79,7 +86,12 @@ void Parser::processIncomingMessage(QByteArray data)
                 break;
             case TEST_DATA_MESSAGE:
             default:
-                emit(updateConsole(QString(data)));
+                while((dataPtr[i] != '\n') && (i < data_size))
+                {
+                    consoleMessage += QString(dataPtr[i]);
+                    i++;
+                }
+                emit(updateConsole(consoleMessage));
                 i++;
                 break;
         }

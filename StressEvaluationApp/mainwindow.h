@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <math.h>
 #include "qcustomplot.h"
 #include "serialinterface.h"
 #include "logger.h"
@@ -44,6 +45,8 @@ private:
     QVector<double> v_ecg_diff;
     QVector<double> v_pcg_avg;
     QVector<double> v_stress;
+    QVector<double> v_stress_idx;
+    QVector<double> v_rr_lat;
 
 private slots:
     void setupTab();
@@ -51,7 +54,8 @@ private slots:
     void startRunEval();
     void startDebugEval();
     void updatePlot(quint64 time,
-                    qint16 ecg_diff, quint16 pcg_avg);
+                    quint16 ecg_diff, quint16 pcg_avg);
+    void updateStressData(quint32, quint32);
     void sendSyncMessage();
     void updateClock();
 };

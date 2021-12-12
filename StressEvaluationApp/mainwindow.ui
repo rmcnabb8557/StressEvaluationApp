@@ -450,12 +450,12 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Mean</string>
+                   <string>HR</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="mean_label">
+                 <widget class="QLabel" name="hr_label">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -486,12 +486,12 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Variance</string>
+                   <string>RMSSD</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="var_label">
+                 <widget class="QLabel" name="rmssd_label">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -522,12 +522,12 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Std Dev</string>
+                   <string>RR Latency</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="stddev_label">
+                 <widget class="QLabel" name="rr_lat_label">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>

@@ -2,59 +2,48 @@
 
 QByteArray CmdVersionRequest(){
     QByteArray qb;
-    qb.append(0x61);
+    qb.append('a');
     return qb;
 }
 
 QByteArray CmdSync(){
     QByteArray qb;
     qb.append(0x65);
-    QDateTime now;
-    time_t rtcData = now.currentSecsSinceEpoch();
-    char *rtcData_ptr = (char*)&rtcData;
-    //for(int i = 4; i > 0; i++){
-    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
-    //}
     return qb;
 }
 
 QByteArray CmdBlinkLED(){
-
+    QByteArray qb;
+    qb.append('c');
+    return qb;
 }
 
 QByteArray CmdDataCollect(){
-
+    QByteArray qb;
+    qb.append('d');
+    return qb;
 }
 
-QByteArray CmdDataFilter(){
-
+QByteArray CmdSDTest(){
+    QByteArray qb;
+    qb.append('b');
+    return qb;
 }
 
 QByteArray CmdRun(){
     QByteArray qb;
-    qb.append(0x71);
-    QDateTime now;
-    time_t rtcData = now.currentSecsSinceEpoch();
-    char *rtcData_ptr = (char*)&rtcData;
-    //for(int i = 4; i > 0; i++){
-    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
-    //}
+    qb.append('f');
     return qb;
 }
 
 QByteArray CmdRunStop(){
-
+    QByteArray qb;
+    qb.append('e');
+    return qb;
 }
 
 QByteArray CmdDbgRun(){
     QByteArray qb;
-    qb.append(0x41);
-    QDateTime now;
-    time_t rtcData = now.currentSecsSinceEpoch();
-    char *rtcData_ptr = (char*)&rtcData;
-    //for(int i = 4; i > 0; i++){
-    qb.append(QByteArray::fromRawData(rtcData_ptr,4));
-    qb.append(0x71);
-    //}
+    qb.append('g');
     return qb;
 }

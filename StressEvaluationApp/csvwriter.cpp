@@ -16,7 +16,7 @@ void CSVWriter::setFileName(QString fileName)
         qDebug() << "logging failed.";
         return;
     }
-    file.write(QString("t,ecg_raw,ecg_state,ecg_out,pcg_raw,pcg_state,pcg_out,rmssd,avg_latency,hr,stress\n").toUtf8().constData());
+    file.write(QString("rr_latency,hr,r_s1_latency,rmssd,stress\n").toUtf8().constData());
     file.close();
 }
 
